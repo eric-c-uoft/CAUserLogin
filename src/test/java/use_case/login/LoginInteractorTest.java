@@ -15,7 +15,7 @@ public class LoginInteractorTest {
     // TODO Task 2.2: make a copy of this test method and follow the instructions in the readme to test your
     //                code from Task 2.1..
     @Test
-    public void successTest() {
+    public void successUserLoggedInTest() {
         LoginInputData inputData = new LoginInputData("Paul", "password");
         LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
@@ -28,16 +28,19 @@ public class LoginInteractorTest {
         LoginOutputBoundary successPresenter = new LoginOutputBoundary() {
             @Override
             public void prepareSuccessView(LoginOutputData user) {
-                assertEquals("Paul", user.getUsername());
+
+                assertEquals("Paul", userRepository.getCurrentUser());
             }
 
             @Override
             public void prepareFailView(String error) {
+
                 fail("Use case failure is unexpected.");
             }
         };
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter);
+        assertNull(userRepository.getCurrentUser());
         interactor.execute(inputData);
     }
 
