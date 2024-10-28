@@ -27,4 +27,9 @@ public interface LoginUserDataAccessInterface {
      */
     User get(String username);
 
+    /**
+     * Override abstract method.
+     * @param name The name to look up to
+     */
+    void setCurrentUser(String name);
 }
